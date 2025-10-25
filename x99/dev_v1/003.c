@@ -1,7 +1,6 @@
 /*
 	Set a handler into a signal
 	signals:
-		- 
 */
 
 #include <signal.h>
@@ -19,4 +18,3 @@ int	main(void)
 	signal(SIGTERM, handler);
 	raise(SIGTERM);
 }
-
