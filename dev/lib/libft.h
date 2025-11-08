@@ -68,6 +68,8 @@ char	*ft_itoab_uns(size_t v, char *base);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_padstart(char *str, int size, char c);
+char	*ft_padend(char *str, int size, char c);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);

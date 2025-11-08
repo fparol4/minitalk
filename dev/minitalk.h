@@ -12,8 +12,13 @@
 
 #ifndef MINITALK_H
 # define MINITALK_H
+# define BYTE_SIZE 8
 
 #include "stdio.h"
 #include "lib/libft.h"
+
+char **ft_str_tobuffer(char *str);
+int     ft_getpid();
+void    panic(char *msg);
 
 #endif

@@ -11,22 +11,28 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <signal.h>
 
-char *str_tobuffer(char *str) {
-    int size = ft_strlen(str) * 8;
-    char *buffer = ft_calloc(size, sizeof(char));
-    while (*str)
-    {
-        int c_int = *str - '0';
-        char *c_bin = ft_itoab(c_int, "01");
-        c_bin = ft_padstart(c_bin, 8, "0");
-        printf("x0: %s\n", c_bin);
-        str++;
-    }
-    return str;
+volatile sig_atomic_t g_acksignal = 0;
+
+static void fn_unlock() { g_acksignal = 0; }
+
+void ft_sendsig(int pid, int bit) {
+  while (g_acksignal)
+    usleep(100);
+  if (bit)
+    kill(pid, SIGUSR2);
+  else
+    kill(pid, SIGUSR1);
+  usleep(100);
 }
 
 int main(int argc, char *argv[]) {
-    char *x0 = "message";
-    str_tobuffer(x0);
+  signal(SIGUSR1, fn_unlock);
+  int pid = ft_atoi(argv[1]);
+  char *message = argv[2];
+  char **m_bits = ft_str_tobuffer(message);
+  // for (int i = 0; i < ft_strlen(message); i++)
+  //   for (int j = 0; j < BYTE_SIZE; j++)
+  //     ft_sendsig(pid, m_bits[i][j] - '0');
 }
